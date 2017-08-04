@@ -51,14 +51,19 @@ def OnKeyboardEvent(event):
         #macros.setState(3,state);
         pass
     if event.KeyID == 103:# 7
+
         state = (macros.getState(5) + 1 )%2
         macros.setState(5,state);
         if state == 1:
-            farmThread = multiprocessing.Process(target=criaItens, args=(5,macros,))
+            farmThread = multiprocessing.Process(target=apagaChar, args=(5,macros,))
             farmThread.start()
         #carregaOpc()
         #state = (macros.getState(4) + 1 )%2
         #macros.setState(4,state);
+
+
+        #apagaChar(macros)
+
         pass
     if event.KeyID == 104:# 8
         state = (macros.getState(6) + 1 )%2
@@ -69,7 +74,7 @@ def OnKeyboardEvent(event):
         #loga()
         pass
     if event.KeyID == 105:# 9
-        #apagaChar()
+        criaChar(macros)
         pass
     if event.KeyID == 27:# esc
         #verificaSub()
@@ -84,15 +89,13 @@ def OnKeyboardEvent(event):
 if __name__ == '__main__':
 
     d0 = date.today()
-    d1 = date(2016, 6, 19)
+    d1 = date(2018, 6, 19)
     delta = d1 - d0
     print delta.days, 'Days of free use'
     if delta.days < 0:
         print '************ Expirado **********'
         os.system('timeout 10')
         os._exit(0)
-
-
 
     hm = pyHook.HookManager()
     multiprocessing.freeze_support()
@@ -101,12 +104,12 @@ if __name__ == '__main__':
 
 
     try:
-        f = open('../config/macros.cfg','r')
+        f = open('config/macros.cfg','r')
     except:
-        f = open('../config/macros.cfg','r')
+        f = open('config/macros.cfg','r')
         f.write('z{wait9999}\n'*3)
         f.close()
-        f = open('../config/macros.cfg','r')
+        f = open('config/macros.cfg','r')
 
     comandos = f.read().split('\n')
     f.close()

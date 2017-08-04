@@ -1,0 +1,10 @@
+
+*.pyc
+
+config/
+
+temp/
+
+\.idea/workspace\.xml
+
+sub\.bmp
