@@ -315,18 +315,18 @@ def abreItens(ID, semaforo):
         sleep(0.2)
 
 
-def criaChar(semaforo):
+def criaChar(ID, semaforo):
     from time import sleep
     global posx, posy
-    sleep(0.5)
+    if esperaOciosa(ID, semaforo, 0.5): return
     click_left(1750, 347)  # abre cria
-    sleep(5)
+    if esperaOciosa(ID, semaforo, 5): return
     SendKeys(semaforo.nick)
-    sleep(0.1)
+    if esperaOciosa(ID, semaforo, 0.1): return
     click_left(1650, 640)  # escolhe AA
-    sleep(0.1)
+    if esperaOciosa(ID, semaforo, 0.1): return
     click_left(1700, 800)  # cria
-    sleep(5)
+    if esperaOciosa(ID, semaforo, 5): return
     loga()
 
 
@@ -401,22 +401,20 @@ def digitaSub(semaforo):
             click_left(p[8][0], p[8][1])
         if Hash[d] == '21':
             click_left(p[9][0], p[9][1])
-        sleep(0.5)
+        sleep(0.8)
     sleep(0.5)
     click_left(979, 612)
 
 
 def esperaOciosa(ID, semaforo, tempo):
     if semaforo.getState(ID) == 0:
-        print "Parando macro  ",ID
+        print "Parando macro  ", ID
         return True
     else:
         sleep(tempo)
 
 
 def apagaChar(ID, semaforo):
-    from time import sleep
-    senha = semaforo.senha
     press(KEY_O)
     if esperaOciosa(ID, semaforo, 0.3): return
     click_left(950, 505)  # select server
@@ -427,7 +425,7 @@ def apagaChar(ID, semaforo):
     if esperaOciosa(ID, semaforo, 5): return
     click_left(1885, 363)  # apagar
     if esperaOciosa(ID, semaforo, 1): return
-    SendKeys(senha)
+    SendKeys(semaforo.senha)
     if esperaOciosa(ID, semaforo, 0.2): return
     SendKeys("{ENTER}")
     if esperaOciosa(ID, semaforo, 0.2): return
@@ -449,6 +447,6 @@ def apagaChar(ID, semaforo):
     if esperaOciosa(ID, semaforo, 0.5): return
     click_left(979, 599)
     if esperaOciosa(ID, semaforo, 0.5): return
-    criaChar(semaforo)
+    criaChar(ID, semaforo)
     state = (semaforo.getState(5) + 1) % 2
     semaforo.setState(5, state);

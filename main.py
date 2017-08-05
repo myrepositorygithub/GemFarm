@@ -74,7 +74,12 @@ def OnKeyboardEvent(event):
         #loga()
         pass
     if event.KeyID == 105:# 9
-        criaChar(macros)
+        state = (macros.getState(7) + 1 )%2
+        macros.setState(7,state);
+        if state == 1:
+            farmThread = multiprocessing.Process(target=criaChar, args=(7,macros,))
+            farmThread.start()
+        #criaChar(macros)
         pass
     if event.KeyID == 27:# esc
         #verificaSub()
